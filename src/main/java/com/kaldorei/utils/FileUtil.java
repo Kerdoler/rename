@@ -1,14 +1,17 @@
 package com.kaldorei.utils;
 
 import org.apache.log4j.Logger;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Properties;
 
 /**
  * 文件工具类
@@ -49,5 +52,24 @@ public class FileUtil {
         return fileCreateDate;
     }
 
+    /**
+     * 读取配置文件
+     * @param key
+     * @return
+     */
+    public static String loadProperty(String key) {
+        Properties properties = new Properties();
+        String value = "";
+        try {
+            properties = PropertiesLoaderUtils.loadAllProperties("props.properties");
+            value = new String(properties.getProperty(key).getBytes("utf-8"),"utf-8");
+        } catch (Exception e) {
+            logger.error("读取配置文件异常", e);
+        }
+        return value;
+    }
 
+    public static void main(String[] args) {
+        System.out.println(loadProperty("FOLDER_PATH"));
+    }
 }
