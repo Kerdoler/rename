@@ -17,15 +17,15 @@ public class Main {
 
     private Logger logger = Logger.getLogger(Main.class);
 
-    /**
-     * 准备修改文件所在的文件夹的完整路径
-     */
-    private static String FOLDER_PATH = "D:\\111";
-
-    /**
-     * 重命名的文件名日期格式
-     */
-    private static String RENAME_FORMAT = "yyyy-MM-dd hh.mm.ss";
+//    /**
+//     * 准备修改文件所在的文件夹的完整路径
+//     */
+//    private static String FOLDER_PATH = "D:\\111";
+//
+//    /**
+//     * 重命名的文件名日期格式
+//     */
+//    private static String RENAME_FORMAT = "yyyy-MM-dd hh.mm.ss";
 
 
     /**
@@ -90,7 +90,7 @@ public class Main {
 
                             // 3.根据文件创建时间定义修改后的文件名
                             if (fileCreateDate != null) {
-                                renameFileName = new SimpleDateFormat(RENAME_FORMAT).format(fileCreateDate);
+                                renameFileName = new SimpleDateFormat(FileUtil.loadProperty("RENAME_FORMAT")).format(fileCreateDate);
                                 // 文件所在文件夹路径 + 新文件名 + 后缀
                                 File renameFile = new File(currentFolderPath + "\\" + renameFileName + fileSuffix);
                                 // 重命名
@@ -113,7 +113,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Main main = new Main();
-        main.fileRename(FOLDER_PATH);
+        main.fileRename(FileUtil.loadProperty("FOLDER_PATH"));
     }
 
 }
