@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -62,7 +61,7 @@ public class FileUtil {
         String value = "";
         try {
             properties = PropertiesLoaderUtils.loadAllProperties("props.properties");
-            value = new String(properties.getProperty(key).getBytes("utf-8"),"utf-8");
+            value = new String(properties.getProperty(key).getBytes("UTF-8"),"UTF-8");
         } catch (Exception e) {
             logger.error("读取配置文件异常", e);
         }

@@ -17,17 +17,6 @@ public class Main {
 
     private Logger logger = Logger.getLogger(Main.class);
 
-//    /**
-//     * 准备修改文件所在的文件夹的完整路径
-//     */
-//    private static String FOLDER_PATH = "D:\\111";
-//
-//    /**
-//     * 重命名的文件名日期格式
-//     */
-//    private static String RENAME_FORMAT = "yyyy-MM-dd hh.mm.ss";
-
-
     /**
      * 递归遍历文件夹修改文件名称
      */
