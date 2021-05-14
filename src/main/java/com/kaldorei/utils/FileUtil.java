@@ -3,7 +3,7 @@ package com.kaldorei.utils;
 import org.apache.log4j.Logger;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
-import java.io.File;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -56,19 +56,30 @@ public class FileUtil {
      * @param key
      * @return
      */
-    public static String loadProperty(String key) {
-        Properties properties = new Properties();
+    public static String loadProperty(String key, String filePathAndFileName) {
+//        Properties properties = new Properties();
+//        String value = "";
+//        try {
+//            properties = PropertiesLoaderUtils.loadAllProperties("props.properties");
+//            value = new String(properties.getProperty(key).getBytes("UTF-8"),"UTF-8");
+//        } catch (Exception e) {
+//            logger.error("读取配置文件异常", e);
+//        }
+//        return value;
+
         String value = "";
+        Properties properties = new Properties();
+        // 使用InPutStream流读取properties文件
         try {
-            properties = PropertiesLoaderUtils.loadAllProperties("props.properties");
-            value = new String(properties.getProperty(key).getBytes("UTF-8"),"UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePathAndFileName));
+            properties.load(bufferedReader);
         } catch (Exception e) {
-            logger.error("读取配置文件异常", e);
+            e.printStackTrace();
         }
+        // 获取key对应的value值
+        value = properties.getProperty(key);
         return value;
+
     }
 
-    public static void main(String[] args) {
-        System.out.println(loadProperty("FOLDER_PATH"));
-    }
 }

@@ -15,7 +15,13 @@ import java.util.Date;
  */
 public class Main {
 
-    private Logger logger = Logger.getLogger(Main.class);
+    private static Logger logger = Logger.getLogger(Main.class);
+
+    /**
+     * properties配置文件的路径
+     */
+    private static String PROPERTIES_PATH = null;
+
 
     /**
      * 递归遍历文件夹修改文件名称
@@ -79,7 +85,7 @@ public class Main {
 
                             // 3.根据文件创建时间定义修改后的文件名
                             if (fileCreateDate != null) {
-                                renameFileName = new SimpleDateFormat(FileUtil.loadProperty("RENAME_FORMAT")).format(fileCreateDate);
+                                renameFileName = new SimpleDateFormat(FileUtil.loadProperty("RENAME_FORMAT",PROPERTIES_PATH)).format(fileCreateDate);
                                 // 文件所在文件夹路径 + 新文件名 + 后缀
                                 File renameFile = new File(currentFolderPath + "\\" + renameFileName + fileSuffix);
                                 // 重命名
@@ -100,9 +106,12 @@ public class Main {
     }
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
+        PROPERTIES_PATH = System.getProperty("user.dir") + "\\options.properties";
+        logger.info("配置文件路径: " + PROPERTIES_PATH);
+
         Main main = new Main();
-        main.fileRename(FileUtil.loadProperty("FOLDER_PATH"));
+        main.fileRename(FileUtil.loadProperty("IMAGE_FOLDER_PATH",PROPERTIES_PATH));
     }
 
 }
